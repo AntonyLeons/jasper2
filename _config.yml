@@ -24,6 +24,8 @@ subscribers: True # you need to connect an external service for this to work,
 # by editing `_includes/subscribe-form.html`
 twitter: tryghost # replace by your username
 facebook: ghost # replace by your username
+x_username: tryghost # replace by your username
+github: tryghost # replace by your username
 
 # Disqus
 disqus: False
@@ -41,8 +43,19 @@ permalink: /:title
 # Tags' info in `_data/tags_info.yml`
 
 # gems and other configs
-plugins_dir: [_plugins]
-plugins: [jekyll-paginate, jekyll-feed]
+plugins_dir: ./_plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-algolia
+
+# Algolia Search configuration
+# To enable search, uncomment the block below and fill in your credentials
+# algolia:
+#   application_id: 'YOUR_APPLICATION_ID'
+#   index_name: 'YOUR_INDEX_NAME'
+#   search_only_api_key: 'YOUR_SEARCH_ONLY_API_KEY'
 
 feed:
   path: feed.xml
@@ -76,20 +89,12 @@ production_url:  https://jekyllt.github.io/jasper2/
 source_url:  https://github.com/jekyllt/jasper2/
 
 exclude:
-  - assets/css
   - node_modules
   - vendor
-  - .travis.yml
   - Gemfile
   - Gemfile.lock
-  - GHOST.txt
-  - gulpfile.js
   - LICENSE
-  - package.json
-  - package-lock.json
-  - Rakefile
   - README.md
-  - script.py
   - changelog.md
   - "*.Rmd"
   - .git*

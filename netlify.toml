@@ -1,0 +1,8 @@
+[build]
+  command = "bundle exec jekyll build && bundle exec jekyll algolia"
+  publish = "_site"
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200

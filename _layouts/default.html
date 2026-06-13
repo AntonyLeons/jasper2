@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
     <!-- Document Settings -->
@@ -11,25 +11,48 @@
     <title>{% if title %}{{ title }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Styles'n'Scripts -->
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}assets/built/screen.css" />
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}assets/built/screen.edited.css" />
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}assets/built/syntax.css" />
-    <!-- highlight.js -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-    <style>.hljs { background: none; }</style>
-
-    <!--[if IE]>
-        <style>
-            p, ol, ul{
-                width: 100%;
-            }
-            blockquote{
-                width: 100%;
-            }
-        </style>
-    <![endif]-->
     
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Theme toggle script
+        (function() {
+            var currentTheme = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (currentTheme === 'dark' || (!currentTheme && prefersDark)) {
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}assets/css/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}assets/css/syntax.css" />
+    <!-- highlight.js  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github.min.css" id="highlight-light" media="all">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css" id="highlight-dark" media="all">
+    <script>
+        (function() {
+            var isDark = document.documentElement.classList.contains('dark-mode');
+            if (isDark) {
+                document.getElementById('highlight-light').disabled = true;
+            } else {
+                document.getElementById('highlight-dark').disabled = true;
+            }
+        })();
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js" integrity="sha384-fgGyf7Mo7DURSOMnOy7ed+dkq5Job205Gnzu6QIg0BOHKaqt4D76Dt8VlDCzcMHV" crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js" integrity="sha256-nA828blBCdUSSdI8jpciOZsf72IGt1eBcdx1ioEfa8o=" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="{{ site.baseurl }}assets/js/jquery.fitvids.js"></script>
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     {% include head.html %}
 
@@ -59,14 +82,12 @@
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
                 <section class="copyright"><a href="{{ site.url }}{{ site.baseurl }}">{{ site.title }}</a> &copy; {{  site.time | date: '%Y' }}</section>
-                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
-                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
-                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
                 <nav class="site-footer-nav">
                     <a href="{{ site.baseurl }}">Latest Posts</a>
-                    {% if site.facebook %}<a href="https://facebook.com/{{ site.facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
-                    {% if site.twitter %}<a href="https://twitter.com/{{ site.twitter }}" target="_blank" rel="noopener">Twitter</a>{% endif %}
-                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                    {% if site.x_username %}<a href="https://x.com/{{ site.x_username }}" target="_blank" rel="noopener">X</a>{% endif %}
+                    {% if site.source_url %}
+                    <a href="{{ site.source_url }}fork" target="_blank" rel="noopener">Fork this on Github</a>
+                    {% endif %}
                 </nav>
             </div>
         </footer>
@@ -88,23 +109,6 @@
         </div>
     {% endif %}
 
-    <!-- highlight.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
-    <script>$(document).ready(function() {
-      $('pre code').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
-    });</script>
-
-    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
-    <script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous">
-    </script>
-    <script type="text/javascript" src="{{ site.baseurl }}assets/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
-
 
     <!-- Paginator increased to "infinit" in _config.yml -->
     <!-- if paginator.posts  -->
@@ -124,6 +128,39 @@
 
     <!-- Add Google Analytics  -->
     {% include analytics.html %}
+
+    <script>
+        $(document).ready(function() {
+            var $html = $('html');
+            
+            // Initial toggle icon state
+            if ($html.hasClass('dark-mode')) {
+                $('.icon-moon').hide();
+                $('.icon-sun').show();
+            }
+
+            $('.theme-toggle').on('click', function(e) {
+                e.preventDefault();
+                var isDark = $html.hasClass('dark-mode');
+                
+                if (isDark) {
+                    $html.removeClass('dark-mode').addClass('light-mode');
+                    localStorage.setItem('theme', 'light');
+                    document.getElementById('highlight-light').disabled = false;
+                    document.getElementById('highlight-dark').disabled = true;
+                    $('.icon-moon').show();
+                    $('.icon-sun').hide();
+                } else {
+                    $html.removeClass('light-mode').addClass('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                    document.getElementById('highlight-dark').disabled = false;
+                    document.getElementById('highlight-light').disabled = true;
+                    $('.icon-sun').show();
+                    $('.icon-moon').hide();
+                }
+            });
+        });
+    </script>
 
     <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
     {% if page.class == "post-template" %}

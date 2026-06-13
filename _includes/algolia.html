@@ -1,0 +1,161 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css" />
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+<style>
+  .ais-SearchBox { margin: 0; width: 100%; display: none; }
+  .ais-SearchBox.open { display: block; }
+  .ais-SearchBox-form { background-color: transparent; margin: 0; }
+  .ais-SearchBox-input { 
+      padding: 5px 10px; 
+      font-size: 1.6rem; 
+      border: none; 
+      border-bottom: 1px solid rgba(255,255,255,0.3); 
+      border-radius: 0; 
+      background: transparent; 
+      color: #fff; 
+      box-shadow: none; 
+      width: 200px;
+      transition: all 0.3s ease;
+  }
+  .ais-SearchBox-input::placeholder { color: rgba(255,255,255,0.7); }
+  .ais-SearchBox-input:focus { outline: none; border-bottom-color: #fff; }
+  
+  .ais-Hits { width: 100%; display: flex; }
+  .ais-Hits-list { 
+      display: flex; 
+      flex-wrap: wrap; 
+      margin: 0; 
+      padding: 0; 
+      list-style: none; 
+      width: 100%;
+  }
+  .ais-Hits-item { 
+      flex: 1 1 300px; 
+      display: flex; 
+      margin: 0; 
+      padding: 0; 
+      box-shadow: none; 
+      background: transparent; 
+      border: none; 
+      max-width: 100%;
+  }
+  .post-card-tags-date { color: #738a94; font-size: 1.2rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .post-card-tags-date a { color: #738a94; }
+  .post-card-tags-date a:hover { color: #3eb0ef; text-decoration: none; }
+  
+  .ais-SearchBox-submit, .ais-SearchBox-reset { display: none; }
+</style>
+
+<script>
+  const searchClient = algoliasearch(
+    '{{ site.algolia.application_id }}',
+    '{{ site.algolia.search_only_api_key }}'
+  );
+
+  const search = instantsearch({
+    indexName: '{{ site.algolia.index_name }}',
+    searchClient,
+    routing: false
+  });
+
+  const hitTemplate = function(hit) {
+      let isCover = hit.cover;
+      let articleClass = "post-card";
+      if (!isCover) articleClass += " no-image";
+
+      const title = hit._highlightResult?.title?.value || hit.title || '';
+      const content = hit._highlightResult?.content?.value || hit.content?.substring(0, 150) || '';
+      const authorName = hit.author || 'Author'; // Fallback if you want to pull author data from Algolia
+      
+      let template = `<article class="${articleClass}">`;
+      
+      if (isCover) {
+          template += `
+            <a class="post-card-image-link" href="{{ site.baseurl }}${hit.url.substring(1)}">
+                <div class="post-card-image" style="background-image: url({{ site.baseurl }}${ hit.cover })"></div>
+            </a>`;
+      }
+
+      template += `
+            <div class="post-card-content">
+            <a class="post-card-content-link" href="{{ site.baseurl }}${hit.url.substring(1)}">
+              <header class="post-card-header">`;
+
+      if ('tags' in hit && hit.tags && hit.tags.length) {
+          hit.tags.forEach((tag, index) => {
+              template += `<span class="post-card-tags">${tag}</span>`;
+          });
+      }
+
+      template += `
+        <h2 class="post-card-title">${title}</h2>
+        </header>
+        <section class="post-card-excerpt">                    
+            <p>${content}...</p>
+        </section>
+        </a>
+        <footer class="post-card-meta">
+            <span class="post-card-author">
+                <a href="{{ site.baseurl }}author/${hit.author}/">${authorName}</a>
+            </span>
+        </footer>
+        </div>
+    </article>`;
+
+      return template;
+  };
+
+  search.addWidgets([
+    instantsearch.widgets.searchBox({
+      container: '#search-searchbar',
+      placeholder: 'Search posts...',
+      showReset: false,
+      showSubmit: false,
+    }),
+    instantsearch.widgets.hits({
+      container: '#search-hits',
+      templates: {
+        item: hitTemplate,
+        empty(results) {
+          return `<div class="text-center" style="width: 100%; margin-top: 40px; font-size: 2rem; color: #738a94;">No results found for <strong>${results.query}</strong>.</div>`;
+        }
+      }
+    })
+  ]);
+
+  search.start();
+
+  $(document).ready(function() {
+      $('#search-hits').hide();
+
+      $('.social-link-search').on('click', function(e) {
+          e.preventDefault();
+          
+          if ($('.ais-SearchBox').hasClass('open')) {
+              // Close search box
+              $('.ais-SearchBox').removeClass('open');
+              $('#search-hits').hide();
+              $('#posts').show();
+              // Clear input when closing
+              $('.ais-SearchBox-input').val('').trigger('input');
+          } else {
+              // Open search box
+              $('.ais-SearchBox').addClass('open');
+              $('.ais-SearchBox-input').focus();
+          }
+      });
+
+      // Only show hits and hide posts when the user actually types something
+      $(document).on('input', '.ais-SearchBox-input', function() {
+          if ($(this).val().trim().length > 0) {
+              $('#posts').hide();
+              $('#search-hits').show();
+          } else {
+              $('#search-hits').hide();
+              $('#posts').show();
+          }
+      });
+  });
+</script>

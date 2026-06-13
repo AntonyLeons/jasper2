@@ -4,6 +4,7 @@
 # Jekyll build
 /_site/
 .jekyll-metadata
+.jekyll-cache
 #Gemfile.lock
 
 # webstorm
@@ -11,7 +12,6 @@
 
 # others
 *.swp
-package-lock.json
 
 # site build
 *.gem
@@ -30,3 +30,5 @@ tmp
 vendor
 Gemfile.lock
 node_modules
+assets/built/
+dist/

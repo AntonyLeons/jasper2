@@ -1,0 +1,61 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "post"
+      - label: "Current"
+        name: "current"
+        widget: "hidden"
+        default: "post"
+      - label: "Class"
+        name: "class"
+        widget: "hidden"
+        default: "post-template"
+      - label: "Subclass"
+        name: "subclass"
+        widget: "string"
+        required: false
+        default: "post"
+      - label: "Navigation"
+        name: "navigation"
+        widget: "hidden"
+        default: true
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD HH:mm:ss"
+      - label: "Author"
+        name: "author"
+        widget: "string"
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        field:
+          label: "Tag"
+          name: "tag"
+          widget: "string"
+      - label: "Cover"
+        name: "cover"
+        widget: "image"
+        required: false
+      - label: "Body"
+        name: "body"
+        widget: "markdown"

@@ -1,20 +1,21 @@
+@use "sass:color";
 /* Variables
 /* ---------------------------------------------------------- */
 
-:root {
+
     /* Colours */
-    --blue: #3eb0ef;
-    --green: #a4d037;
-    --purple: #ad26b4;
-    --yellow: #fecd35;
-    --red: #f05230;
-    --darkgrey: #15171A;
-    --midgrey: #738a94;
-    --lightgrey: #c5d2d9;
-    --whitegrey: #e5eff5;
-    --pink: #fa3a57;
-    --brown: #a3821a;
-}
+    $blue: #3eb0ef;
+    $green: #a4d037;
+    $purple: #ad26b4;
+    $yellow: #fecd35;
+    $red: #f05230;
+    $darkgrey: #15171A;
+    $midgrey: #738a94;
+    $lightgrey: #c5d2d9;
+    $whitegrey: #e5eff5;
+    $pink: #fa3a57;
+    $brown: #a3821a;
+
 
 /* Reset
 /* ---------------------------------------------------------- */
@@ -281,8 +282,8 @@ html {
 }
 body {
     overflow-x: hidden;
-    color: color(var(--midgrey) l(-25%));
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    color: color.adjust($midgrey, $lightness: -25%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.5rem;
     line-height: 1.6em;
     font-weight: 400;
@@ -298,7 +299,7 @@ body {
 
 ::selection {
     text-shadow: none;
-    background: color(var(--blue) lightness(+30%));
+    background: color.adjust($blue, $lightness: 30%);
 }
 
 hr {
@@ -309,7 +310,7 @@ hr {
     padding: 0;
     height: 1px;
     border: 0;
-    border-top: 1px solid color(var(--lightgrey) l(+10%));
+    border-top: 1px solid color.adjust($lightgrey, $lightness: 10%);
 }
 
 audio,
@@ -370,7 +371,7 @@ dt {
     float: left;
     margin: 0 20px 0 0;
     width: 120px;
-    color: var(--darkgrey);
+    color: $darkgrey;
     font-weight: 500;
     text-align: right;
 }
@@ -383,7 +384,7 @@ dd {
 blockquote {
     margin: 1.5em 0;
     padding: 0 1.6em 0 1.6em;
-    border-left: var(--whitegrey) 0.5em solid;
+    border-left: $whitegrey 0.5em solid;
 }
 
 blockquote p {
@@ -411,7 +412,7 @@ blockquote cite a {
 }
 
 a {
-    color: color(var(--blue) l(-5%));
+    color: color.adjust($blue, $lightness: -5%);
     text-decoration: none;
 }
 
@@ -488,4 +489,21 @@ h6 {
     blockquote {
         width: 100%;
     }
+}
+
+@mixin dark-mode-global() {
+    body {
+        background: $darkgrey;
+        color: $whitegrey;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not(.light-mode) {
+        @include dark-mode-global();
+    }
+}
+
+html.dark-mode {
+    @include dark-mode-global();
 }

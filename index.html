@@ -30,10 +30,17 @@ into the {body} of the default.hbs template -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
 
-        <div class="post-feed">
+        {% if site.algolia %}
+        <div id="search-hits" class="post-feed" style="display: none;"></div>
+        {% endif %}
+        
+        <div id="posts" class="post-feed">
             <!-- The tag below includes the markup for each post - partials/post-card.hbs -->
             {%  include post-card.html %}
         </div>
 
+        {% if site.algolia %}
+        {% include algolia.html %}
+        {% endif %}
     </div>
 </main>
