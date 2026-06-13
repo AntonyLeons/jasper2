@@ -1,5 +1,5 @@
 [build]
-  command = "bundle exec jekyll build && bundle exec jekyll algolia"
+  command = "bundle exec jekyll build && (bundle exec jekyll algolia || echo 'Warning: Algolia indexing skipped or failed')"
   publish = "_site"
 
 [[redirects]]
