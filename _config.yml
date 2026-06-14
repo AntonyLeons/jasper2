@@ -55,6 +55,9 @@ algolia:
   application_id: '08WJSG8GMW'
   index_name: 'jasper2'
   search_only_api_key: '899d0b22cae5a8affeb4f1f9f35adcc4'
+  files_to_exclude:
+    - index.html
+    - 404.html
 
 feed:
   path: feed.xml
