@@ -373,6 +373,12 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
         padding-left: 4vw;
     }
     .site-nav-right {
+        display: flex;
+        padding-right: 4vw;
+    }
+    .site-nav-right .social-links,
+    .site-nav-right .nav-divider,
+    .site-nav-right .subscribe-button {
         display: none;
     }
 }
