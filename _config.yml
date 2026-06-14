@@ -51,11 +51,10 @@ plugins:
   - jekyll-algolia
 
 # Algolia Search configuration
-# To enable search, uncomment the block below and fill in your credentials
-# algolia:
-#   application_id: 'YOUR_APPLICATION_ID'
-#   index_name: 'YOUR_INDEX_NAME'
-#   search_only_api_key: 'YOUR_SEARCH_ONLY_API_KEY'
+algolia:
+  application_id: '08WJSG8GMW'
+  index_name: 'jasper2'
+  search_only_api_key: '899d0b22cae5a8affeb4f1f9f35adcc4'
 
 feed:
   path: feed.xml
