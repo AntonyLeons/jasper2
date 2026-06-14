@@ -24,7 +24,7 @@
         {% endif %}
         <div class="social-links">
             {% if site.github %}
-                <a class="social-link social-link-gh" href="https://github.com/{{ site.github }}" target="_blank" rel="noopener">{% include github.html %}</a>
+                <a class="social-link social-link-gh" href="{% if site.source_url %}{{ site.source_url }}{% else %}https://github.com/{{ site.github }}{% endif %}" target="_blank" rel="noopener">{% include github.html %}</a>
             {% endif %}
             {% if site.x_username %}
                 <a class="social-link social-link-tw" href="https://x.com/{{ site.x_username }}" target="_blank" rel="noopener">{% include x.html %}</a>
