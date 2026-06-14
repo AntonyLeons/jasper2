@@ -34,7 +34,19 @@ into the {body} of the default.hbs template -->
             {% endif %}
 
             <section class="post-full-content">
-                {{ content }}
+                {% assign relative_src = 'src="assets/' %}
+                {% if site.baseurl == "/" %}
+                    {% assign absolute_src = 'src="/assets/' %}
+                {% else %}
+                    {% assign absolute_src = 'src="' | append: site.baseurl | append: '/assets/' %}
+                {% endif %}
+                {% assign relative_href = 'href="assets/' %}
+                {% if site.baseurl == "/" %}
+                    {% assign absolute_href = 'href="/assets/' %}
+                {% else %}
+                    {% assign absolute_href = 'href="' | append: site.baseurl | append: '/assets/' %}
+                {% endif %}
+                {{ content | replace: relative_src, absolute_src | replace: relative_href, absolute_href }}
             </section>
 
         </article>
