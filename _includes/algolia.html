@@ -127,34 +127,51 @@
 
   search.start();
 
-  $(document).ready(function() {
-      $('#search-hits').hide();
+  document.addEventListener('DOMContentLoaded', function() {
+      const searchHits = document.getElementById('search-hits');
+      const posts = document.getElementById('posts');
 
-      $('.social-link-search').on('click', function(e) {
-          e.preventDefault();
-          
-          if ($('.ais-SearchBox').hasClass('open')) {
-              // Close search box
-              $('.ais-SearchBox').removeClass('open');
-              $('#search-hits').hide();
-              $('#posts').show();
-              // Clear input when closing
-              $('.ais-SearchBox-input').val('').trigger('input');
-          } else {
-              // Open search box
-              $('.ais-SearchBox').addClass('open');
-              $('.ais-SearchBox-input').focus();
-          }
+      if (searchHits) {
+          searchHits.style.display = 'none';
+      }
+
+      document.querySelectorAll('.social-link-search').forEach(function(el) {
+          el.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              const searchBox = document.querySelector('.ais-SearchBox');
+              const searchInput = document.querySelector('.ais-SearchBox-input');
+              
+              if (searchBox) {
+                  if (searchBox.classList.contains('open')) {
+                      // Close search box
+                      searchBox.classList.remove('open');
+                      if (searchHits) searchHits.style.display = 'none';
+                      if (posts) posts.style.display = '';
+                      // Clear input when closing
+                      if (searchInput) {
+                          searchInput.value = '';
+                          searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                      }
+                  } else {
+                      // Open search box
+                      searchBox.classList.add('open');
+                      if (searchInput) searchInput.focus();
+                  }
+              }
+          });
       });
 
       // Only show hits and hide posts when the user actually types something
-      $(document).on('input', '.ais-SearchBox-input', function() {
-          if ($(this).val().trim().length > 0) {
-              $('#posts').hide();
-              $('#search-hits').show();
-          } else {
-              $('#search-hits').hide();
-              $('#posts').show();
+      document.addEventListener('input', function(e) {
+          if (e.target && e.target.classList.contains('ais-SearchBox-input')) {
+              if (e.target.value.trim().length > 0) {
+                  if (posts) posts.style.display = 'none';
+                  if (searchHits) searchHits.style.display = '';
+              } else {
+                  if (searchHits) searchHits.style.display = 'none';
+                  if (posts) posts.style.display = '';
+              }
           }
       });
   });
