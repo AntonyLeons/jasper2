@@ -60,6 +60,8 @@
     routing: false
   });
 
+  const authors = {{ site.data.authors | jsonify }};
+
   const hitTemplate = function(hit) {
       let isCover = hit.cover;
       let articleClass = "post-card";
@@ -67,7 +69,18 @@
 
       const title = hit._highlightResult?.title?.value || hit.title || '';
       const content = hit._highlightResult?.content?.value || hit.content?.substring(0, 150) || '';
-      const authorName = hit.author || 'Author'; // Fallback if you want to pull author data from Algolia
+      
+      let authorInfo = authors[hit.author];
+      if (!authorInfo && hit.author) {
+          for (const key in authors) {
+              if (authors[key].username === hit.author) {
+                  authorInfo = authors[key];
+                  break;
+              }
+          }
+      }
+      const authorName = authorInfo?.name || hit.author || 'Author';
+      const authorPicture = authorInfo?.picture ? '{{ site.baseurl }}' + authorInfo.picture : null;
       
       let template = `<article class="${articleClass}">`;
       
@@ -96,7 +109,13 @@
             <p>${content}...</p>
         </section>
         </a>
-        <footer class="post-card-meta">
+        <footer class="post-card-meta">`;
+
+      if (authorPicture) {
+          template += `<img class="author-profile-image" src="${authorPicture}" alt="${authorName}" />`;
+      }
+
+      template += `
             <span class="post-card-author">
                 <a href="{{ site.baseurl }}author/${hit.author}/">${authorName}</a>
             </span>
