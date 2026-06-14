@@ -12,15 +12,15 @@
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this {% include point.html %}</div>
         <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u={{ site.production_url }}{{ page.url | remove_first: '/' }}"
-            onclick="window.open(this.href, 'share-facebook', 'width=580,height=296');return false;">
+            onclick="window.open(this.href, 'share-facebook', 'width=580,height=296');return false;" aria-label="Share on Facebook">
             {% include facebook.html %}
         </a>
         <a class="floating-header-share-tw" href="https://twitter.com/share?text={{ page.title | url_encode }}&amp;url={{ site.production_url }}{{ page.url | remove_first: '/' }}"
-            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;" aria-label="Share on X">
             {% include x.html %}
         </a>
         <a class="floating-header-share-ln" href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ site.production_url }}{{ page.url | remove_first: '/' }}&amp;title={{ page.title | url_encode }}&amp;source={{ site.production_url }}"
-            onclick="window.open(this.href, 'share-linkedin', 'width=550,height=235');return false;">
+            onclick="window.open(this.href, 'share-linkedin', 'width=550,height=235');return false;" aria-label="Share on LinkedIn">
             {% include linkedin.html %}
         </a>
     </div>

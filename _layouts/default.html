@@ -47,12 +47,6 @@
             }
         })();
     </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-
-    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js" integrity="sha384-fgGyf7Mo7DURSOMnOy7ed+dkq5Job205Gnzu6QIg0BOHKaqt4D76Dt8VlDCzcMHV" crossorigin="anonymous"></script>
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js" integrity="sha256-nA828blBCdUSSdI8jpciOZsf72IGt1eBcdx1ioEfa8o=" crossorigin="anonymous"></script> -->
-    <script type="text/javascript" src="{{ site.baseurl }}assets/js/jquery.fitvids.js"></script>
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     {% include head.html %}
 
@@ -117,6 +111,11 @@
     </script>
     <script src="{{ site.baseurl }}assets/js/infinitescroll.js"></script> -->
     <!-- /endif -->
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js" integrity="sha384-fgGyf7Mo7DURSOMnOy7ed+dkq5Job205Gnzu6QIg0BOHKaqt4D76Dt8VlDCzcMHV" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ site.baseurl }}assets/js/jquery.fitvids.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
 
     {% if paginator.total_pages > site.paginate %}
     <script>
