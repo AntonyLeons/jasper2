@@ -1,0 +1,10 @@
+{
+  "buildCommand": "bundle exec jekyll build && bundle exec jekyll algolia",
+  "outputDirectory": "_site",
+  "rewrites": [
+    {
+      "source": "/admin/:path*",
+      "destination": "/admin/index.html"
+    }
+  ]
+}

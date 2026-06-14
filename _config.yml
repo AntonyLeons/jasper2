@@ -87,6 +87,9 @@ relative_source: ../jasper2/
 production_url:  https://antonyleons.github.io/jasper2/
 source_url:  https://github.com/AntonyLeons/jasper2/
 
+include:
+  - _redirects
+
 exclude:
   - node_modules
   - vendor
@@ -94,6 +97,8 @@ exclude:
   - Gemfile.lock
   - LICENSE
   - README.md
+  - netlify.toml
+  - vercel.json
   - changelog.md
   - "*.Rmd"
   - .git*

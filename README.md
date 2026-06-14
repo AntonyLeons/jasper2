@@ -29,6 +29,14 @@ This is a modern, full-featured port of Ghost's default theme [Casper](https://g
 
 ## Getting Started
 
+### 🚀 Quick Deploy
+
+Deploy your own copy of this blog template to the cloud with a single click:
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/AntonyLeons/jasper2) &nbsp;&nbsp;
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/AntonyLeons/jasper2) &nbsp;&nbsp;
+[![Use this template](https://img.shields.io/badge/Use_this_template-2ea44f?style=for-the-badge&logo=github)](https://github.com/AntonyLeons/jasper2/generate)
+
 ### Prerequisites
 
 - [Ruby](https://www.ruby-lang.org/en/documentation/installation/) (Check with `ruby -v`)
@@ -80,6 +88,35 @@ Rename the `author` field in the front matter of your posts to match the author'
 - `location` and `url_full`
 - `picture` and `cover` images
 - `x_username` / `twitter`, `facebook`, and `github` accounts
+
+### Algolia Search
+
+This theme includes instant search powered by [Algolia](https://www.algolia.com/).
+
+**To enable search:**
+1. Create a free index in your [Algolia Dashboard](https://www.algolia.com/).
+2. Add your public keys to `_config.yml`:
+   ```yaml
+   algolia:
+     application_id: 'YOUR_APPLICATION_ID'
+     index_name: 'YOUR_INDEX_NAME'
+     search_only_api_key: 'YOUR_SEARCH_ONLY_API_KEY'
+   ```
+3. Set your secret Admin API Key as the environment variable `JEKYLL_ALGOLIA_API_KEY` on your hosting provider (like Netlify, Vercel, or Cloudflare Pages) so the build pipeline can upload your posts index automatically.
+
+**To disable search:**
+Comment out or delete the `algolia` block in `_config.yml`. The search bar and icon will be automatically hidden from the header with no JavaScript console errors.
+
+### Disqus Comments
+
+To enable Disqus comments on post pages:
+1. Register your site on [Disqus](https://disqus.com/) and copy your **Disqus Shortname**.
+2. Open `_config.yml`, set `disqus: True` and fill in your shortname:
+   ```yaml
+   disqus: True
+   disqus_shortname: your_disqus_shortname
+   ```
+To disable comments, simply set `disqus: False`.
 
 ### Styling
 
